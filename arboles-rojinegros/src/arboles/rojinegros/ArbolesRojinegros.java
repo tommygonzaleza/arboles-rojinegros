@@ -16,6 +16,7 @@ public class ArbolesRojinegros {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        //hola
         Interfaz i = new Interfaz();
         i.setVisible(true);
     }
