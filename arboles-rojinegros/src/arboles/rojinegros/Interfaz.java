@@ -5,7 +5,9 @@
  */
 package arboles.rojinegros;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -14,6 +16,55 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class Interfaz extends javax.swing.JFrame {
+    public RBTree leercsv(String filepath){
+        RBTree personas = new RBTree();
+        String line;
+        String pelicula_csv = "";
+        String path = filepath;
+        //String path = "test\\cliente.csv"; Lee el csv clientes
+        File file = new File(path);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            } else {
+                file.createNewFile();
+                FileReader fr = new FileReader(file);
+                BufferedReader br = new BufferedReader(fr);
+                while ((line = br.readLine()) != null) {
+                    
+                    if (!line.isEmpty()) {
+                        pelicula_csv += line + "\n";
+                    }
+
+                }
+               
+                if (!"".equals(pelicula_csv)) {
+                    String[] pelicula_split = pelicula_csv.split("\n");
+                    String texto=pelicula_split[0];
+                    for (int i = 0; i < pelicula_split.length ; i++) {
+                       
+                        
+                        if (!pelicula_split[i].equals(texto)) {
+                            String[] cliente = pelicula_split[i].split(",");
+                            personas.insert2(cliente[0],cliente[1], Integer.parseInt(cliente[2]));
+
+                        }
+
+                    }
+
+                }
+                br.close();
+                JOptionPane.showMessageDialog(null, "Exitos al Leer");
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al leer");
+
+        }
+
+        return personas;
+
+    }
 
     /**
      * Creates new form Interfaz
