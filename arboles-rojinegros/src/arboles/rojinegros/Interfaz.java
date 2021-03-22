@@ -141,6 +141,11 @@ public class Interfaz extends javax.swing.JFrame {
                 nombreActionPerformed(evt);
             }
         });
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Nombre:");
 
@@ -157,6 +162,11 @@ public class Interfaz extends javax.swing.JFrame {
                 apellidoActionPerformed(evt);
             }
         });
+        apellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                apellidoKeyTyped(evt);
+            }
+        });
 
         CI.setToolTipText("");
         CI.addActionListener(new java.awt.event.ActionListener() {
@@ -164,11 +174,21 @@ public class Interfaz extends javax.swing.JFrame {
                 CIActionPerformed(evt);
             }
         });
+        CI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                CIKeyTyped(evt);
+            }
+        });
 
         jTextField4.setToolTipText("");
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
+            }
+        });
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
             }
         });
 
@@ -187,6 +207,11 @@ public class Interfaz extends javax.swing.JFrame {
         jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField5ActionPerformed(evt);
+            }
+        });
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
             }
         });
 
@@ -448,6 +473,66 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         persona.printInorder(persona.getRoot());
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if (Character.isLetter(car) ) {
+            
+        } else {
+            evt.consume();
+            getToolkit().beep();
+            
+        }
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void apellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if (Character.isLetter(car) ) {
+            
+        } else {
+            evt.consume();
+            getToolkit().beep();
+            
+        }
+    }//GEN-LAST:event_apellidoKeyTyped
+
+    private void CIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CIKeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if (Character.isDigit(car) ) {
+            
+        } else {
+            evt.consume();
+            getToolkit().beep();
+            
+        }
+    }//GEN-LAST:event_CIKeyTyped
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if (Character.isDigit(car) ) {
+            
+        } else {
+            evt.consume();
+            getToolkit().beep();
+            
+        }
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        // TODO add your handling code here:
+        char car = evt.getKeyChar();
+        if (Character.isDigit(car) ) {
+            
+        } else {
+            evt.consume();
+            getToolkit().beep();
+            
+        }
+    }//GEN-LAST:event_jTextField5KeyTyped
 
     /**
      * @param args the command line arguments
