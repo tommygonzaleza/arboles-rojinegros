@@ -98,6 +98,13 @@ public class RBTree {
 
         }
     }
+    public String printNode(Node node){
+        String aux="Nombre: " +node.getNombre()+"\n" + 
+                "Apellido: " + node.getApellido()+"\n"+
+                "Cedula: " + Integer.toString(node.getData());
+        
+        return aux;
+    }
 
     public Node AuxPadre(Node mynode, Node root) {
         if (root == null || mynode == null) {
