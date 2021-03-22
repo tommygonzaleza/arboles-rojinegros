@@ -34,6 +34,7 @@ public class RBTree {
     public void setRoot(Node root) {
         this.root = root;
     }
+    
 
     public Node search(int d, Node root) {
         if (this.root == null) {
@@ -124,6 +125,26 @@ public class RBTree {
         Node aux = SearchNode(this.root, data);
         Node padre = AuxPadre(aux, this.root);
         return padre;
+    }
+    public boolean Search( int i, Node root){
+        boolean aux=false;
+        if (root==null) {
+            return false;
+        }else{
+            if (i==root.getData()) {
+                return aux=true;
+            }else if (root!=null){
+                 if (i<root.getData()) {
+                    aux=Search(i,root.getLeft());
+                }else{
+                     aux=Search(i,root.getRight());
+                 }
+            
+            }
+            
+        }
+        return aux;    
+        
     }
 
     public Node SearchNode(Node root, int i) {

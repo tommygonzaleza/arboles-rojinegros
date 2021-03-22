@@ -415,14 +415,13 @@ public class Interfaz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La CI no puede estar vacio ");
         }else{
             int cedula=Integer.parseInt(CI.getText());
-            persona.insert2(Nombre, Apellido, cedula);
             
-            /*if (persona.search(cedula, persona.getRoot())!=null) {
+            if (!persona.Search(cedula, persona.getRoot())) {
                 persona.insert2(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
             }else{
                 JOptionPane.showMessageDialog(null, "Ya existe la CI: "+ cedula);
-            }*/
+            }
             
                 
             }
