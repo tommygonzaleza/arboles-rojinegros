@@ -139,5 +139,11 @@ public class Node {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
-    
+    public boolean esHoja(){
+        if(this.getLeft() != null || this.getRight() != null){
+            return false;
+        } else{
+            return true;
+        }
+    }
 }
