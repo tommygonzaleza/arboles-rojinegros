@@ -139,5 +139,22 @@ public class Node {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+    public boolean esHoja(){
+        if(this.getLeft() != null || this.getRight() != null){
+            return false;
+        } else{
+            return true;
+        }
+    }
     
+    public int nodosCompletos(Node n){
+        if(n == null){
+            return 0;
+        }else{
+            if(n.getLeft()!=null && n.getRight()!=null){
+                return nodosCompletos(n.getLeft())+nodosCompletos(n.getRight())+1;
+            }
+            return nodosCompletos(n.getLeft())+nodosCompletos(n.getRight());
+        }
+    }
 }

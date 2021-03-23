@@ -1,5 +1,7 @@
 package arboles.rojinegros;
 
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -329,6 +331,138 @@ public class RBTree {
             }
             Auxinsert(node);
         }
+    }
+     private void fixDelete(Node x) {
+        Node s;
+        while (x != null && x != root && x.isRed() == false) {
+            if (x == x.getPadre().getLeft()) {
+                s = x.getPadre().getRight();
+                if (s.isRed() == true) {
+                    // case 3.1
+                    s.setRed(false);
+                    x.getPadre().setRed(true);
+                    leftRotate(x.getPadre());
+                    s = x.getPadre().getRight();
+                }
 
+                if (s.getLeft().isRed() == false && s.getRight().isRed() == false) {
+                    // case 3.2
+                    s.setRed(true);
+                    x = x.getPadre();
+                } else {
+                    if (s.getRight().isRed() == false) {
+                        // case 3.3
+                        s.getLeft().setRed(false);
+                        s.setRed(true);
+                        rightRotate(s);
+                        s = x.getPadre().getRight();
+                    }
+
+                    // case 3.4
+                    s.setRed(x.getPadre().isRed());
+                    x.getPadre().setRed(false);
+                    s.getRight().setRed(false);
+                    leftRotate(x.getPadre());
+                    x = root;//caso aparte
+                }
+            } else {
+                s = x.getPadre().getLeft();
+                if (s.isRed() == false) {
+                    // case 3.1
+                    s.setRed(false);
+                    x.getPadre().setRed(true);
+                    rightRotate(x.getPadre());
+                    s = x.getPadre().getLeft();
+                }
+
+                if (s.getRight().isRed() == false && s.getRight().isRed() == false) { //s.right.color == 0 && s.right.color == 0
+                    // case 3.2
+                    s.setRed(true);
+                    x = x.getPadre();
+                } else {
+                    if (s.getLeft().isRed() == false) {
+                        // case 3.3
+                        s.getRight().setRed(false);
+                        s.setRed(true);
+                        leftRotate(s);
+                        s = x.getPadre().getLeft();
+                    }
+
+                    // case 3.4
+                    s.setRed(x.getPadre().isRed());
+                    x.getPadre().setRed(false);
+                    s.getLeft().setRed(false);
+                    rightRotate(x.getPadre());
+                    x = root;
+                }
+            }
+        }
+        //x.setRed(false);
+    }
+
+    private void transplanteRB(Node u, Node v) {
+        if (u.getPadre() == null) {
+            root = v;
+        } else if (u == u.getPadre().getLeft()) {
+            u.getPadre().setLeft(v);
+        } else {
+            u.getPadre().setRight(v);
+        }
+        v.setPadre(u.getPadre());
+    }
+
+    public void eliminarNodo(Node raiz, int key) {
+        // find the node containing key
+        Node z = null;
+        Node x, y;
+        while (raiz != null) {
+            if (raiz.getData() == key){
+                z = raiz;
+            }
+            if (raiz.getData() < key) {
+                raiz = raiz.getRight();
+            } else {
+                raiz = raiz.getLeft();
+            }
+        }
+        if (z == null) {
+            JOptionPane.showMessageDialog(null,"No se pudo encontrar la cédula");
+            return;
+        }
+        y = z;
+        boolean yOriginalColor = y.isRed();
+        if (z.getLeft() == null) {
+            x = z.getRight();
+            transplanteRB(z, z.getRight());
+        } else if (z.getRight() == null) {
+            x = z.getLeft();
+            transplanteRB(z, z.getLeft());
+        } else {
+            y = minimum(z.getRight());
+            yOriginalColor = y.isRed();
+            x = z.getRight();
+            if (y.getPadre() == z) {
+                //System.out.println(x.getData());
+                x.setPadre(y);
+            } else {
+                transplanteRB(y, y.getRight());
+                y.setRight(z.getRight());
+                y.getRight().setPadre(y);
+            }
+            transplanteRB(z, y);
+            y.setLeft(z.getLeft());
+            y.getLeft().setPadre(y);
+            y.setRed(z.isRed());
+        }
+        if (yOriginalColor == false) {
+            fixDelete(x);
+        }
+    }
+
+    public Node minimum(Node node) {
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
     }
 }

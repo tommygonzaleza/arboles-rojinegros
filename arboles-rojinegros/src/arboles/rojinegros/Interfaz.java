@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -66,6 +67,20 @@ public class Interfaz extends javax.swing.JFrame {
 
     }
     RBTree persona =new RBTree();//Crea arbol vacio
+    Canvas canvas = new Canvas();
+    Controller controller = new Controller(canvas, persona);
+
+    public String mostrarArbol(RBTree arbol) {
+        Canvas canvas = new Canvas();
+        Controller controller = new Controller(canvas, arbol);
+        controller.iniciar();
+        JFrame ventana = new JFrame();
+        ventana.getContentPane().add(canvas);
+        ventana.setDefaultCloseOperation(3);
+        ventana.setSize(800, 400);
+        ventana.setVisible(true);
+        return "Arbol mostrado.";
+    }
     /**
      * Creates new form Interfaz
      */
@@ -442,6 +457,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        int ci = Integer.parseInt(jTextField4.getText());
+        persona.eliminarNodo(persona.getRoot(), ci);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -470,7 +487,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        persona.printInorder(persona.getRoot());
+        mostrarArbol(persona);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
