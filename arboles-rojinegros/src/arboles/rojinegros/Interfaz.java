@@ -487,7 +487,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        persona.printInorder(persona.getRoot());
         mostrarArbol(persona);
     }//GEN-LAST:event_jButton6ActionPerformed
 
