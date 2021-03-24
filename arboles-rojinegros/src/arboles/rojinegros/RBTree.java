@@ -408,7 +408,9 @@ public class RBTree {
         } else {
             u.getPadre().setRight(v);
         }
-        v.setPadre(u.getPadre());
+        if(u.getPadre() != null && v!=null){
+            v.setPadre(u.getPadre());
+        }
     }
 
     public void eliminarNodo(Node raiz, int key) {
