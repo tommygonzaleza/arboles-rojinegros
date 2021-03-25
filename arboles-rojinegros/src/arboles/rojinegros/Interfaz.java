@@ -5,6 +5,7 @@
  */
 package arboles.rojinegros;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -73,13 +74,20 @@ public class Interfaz extends javax.swing.JFrame {
     Controller controller = new Controller(canvas, persona);
 
     public String mostrarArbol(RBTree arbol) {
+        setLayout(null);
+        JScrollPane scrollPane;
         Canvas canvas = new Canvas();
         Controller controller = new Controller(canvas, arbol);
         controller.iniciar();
+        scrollPane=new JScrollPane();
+        scrollPane.setBounds(5,10,2000,1000);
+        
         JFrame ventana = new JFrame();
-        ventana.getContentPane().add(canvas);
+        canvas.setPreferredSize(new Dimension(5000,400));
+        scrollPane.setViewportView(canvas);
+        ventana.getContentPane().add(scrollPane);
         ventana.setDefaultCloseOperation(3);
-        ventana.setSize(800, 400);
+        ventana.setSize(1000, 500);
         ventana.setVisible(true);
         return "Arbol mostrado.";
     }
