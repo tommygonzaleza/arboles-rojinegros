@@ -1,5 +1,6 @@
 package arboles.rojinegros;
 
+import com.csvreader.CsvWriter;
 import javax.swing.JOptionPane;
 
 /*
@@ -466,5 +467,23 @@ public class RBTree {
             node = node.getLeft();
         }
         return node;
+    }
+    public void writePreorder(Node root, CsvWriter csvwriter) {
+        try{
+            
+            String[] habitantes_csv = {root.getNombre(),root.getApellido(), Integer.toString(root.getData())};
+            csvwriter.writeRecord(habitantes_csv);
+            
+            if (root.getLeft() != null) {
+                writePreorder(root.getLeft(),csvwriter);
+            }
+            if (root.getRight() != null) {
+                writePreorder(root.getRight(), csvwriter);
+
+            }
+
+        }catch(Exception err){
+                
+        }
     }
 }
