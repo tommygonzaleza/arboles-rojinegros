@@ -139,6 +139,13 @@ public class Node {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+    
+    /**
+     * Esta funcion devuelve si es hoja o no
+     *
+     * @return true o false dependiendo si es hoja o no
+     */
+    
     public boolean esHoja(){
         if(this.getLeft() != null || this.getRight() != null){
             return false;
@@ -146,6 +153,13 @@ public class Node {
             return true;
         }
     }
+    
+    /**
+     * Esta funcion muestra los nodos completos
+     *
+     * @param n elemento del nodo
+     * @return los nodos completos
+     */
     
     public int nodosCompletos(Node n){
         if(n == null){
