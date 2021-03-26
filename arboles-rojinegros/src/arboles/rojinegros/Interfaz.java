@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
  *
  * @author Usuario
  */
+
 public class Interfaz extends javax.swing.JFrame {
     public RBTree leercsv(String filepath){
         RBTree personas = new RBTree();
@@ -52,7 +53,7 @@ public class Interfaz extends javax.swing.JFrame {
                         
                         if (!pelicula_split[i].equals(texto)) {
                             String[] cliente = pelicula_split[i].split(",");
-                            personas.insert2(cliente[0],cliente[1], Integer.parseInt(cliente[2]));
+                            personas.insert(cliente[0],cliente[1], Integer.parseInt(cliente[2]));
 
                         }
 
@@ -71,6 +72,7 @@ public class Interfaz extends javax.swing.JFrame {
         return personas;
 
     }
+    
     RBTree persona =new RBTree();//Crea arbol vacio
     Canvas canvas = new Canvas();
     Controller controller = new Controller(canvas, persona);
@@ -454,8 +456,8 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(CI.getText());
             
-            if (!persona.Search(cedula, persona.getRoot())) {
-                persona.insert2(Nombre, Apellido, cedula);
+            if (!persona.search1(cedula, persona.getRoot())) {
+                persona.insert(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
             }else{
                 JOptionPane.showMessageDialog(null, "Ya existe la CI: "+ cedula);
@@ -481,7 +483,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int ci = Integer.parseInt(jTextField4.getText());
-        persona.eliminarNodo(persona.getRoot(), ci);
+        persona.deleteNodo(persona.getRoot(), ci);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
@@ -496,7 +498,7 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(cedulaI);
             
-            if (persona.search(cedula, persona.getRoot())==null) {
+            if (persona.Search(cedula, persona.getRoot())==false) {
                 JOptionPane.showMessageDialog(null,"La cedula no se encuentra.");
                 
             }else{

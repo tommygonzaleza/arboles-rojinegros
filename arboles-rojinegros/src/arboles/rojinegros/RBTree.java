@@ -8,8 +8,6 @@ import javax.swing.JOptionPane;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 /**
  *
  * @author Jrios
@@ -17,10 +15,9 @@ import javax.swing.JOptionPane;
 public class RBTree {
 
     private Node root;
-    
 
     public RBTree() {
-        
+
         this.root = null;
     }
 
@@ -37,7 +34,14 @@ public class RBTree {
     public void setRoot(Node root) {
         this.root = root;
     }
-    
+
+    /**
+     * Esta funcion busca un nodo en el arbol y lo devuelve
+     *
+     * @param d elemento del nodo
+     * @param root raiz del arbol y subarboles
+     * @return el nodo del elemento d
+     */
 
     public Node search(int d, Node root) {
         if (this.root == null) {
@@ -51,20 +55,17 @@ public class RBTree {
         }
     }
 
-    public boolean isEmpty() {
-        return root == null;
-    }
 
-    public int Max(int x, int d) {
-        if (x > d) {
-            return x;
-        } else if (x < d) {
-            return d;
-        } else {
-            return x;
-        }
-    }
+ 
 
+    /**
+     * Este metodo devueleve el padre de un nodo, si no tiene los hijos
+     * completos
+     *
+     * @param root raiz del arbol
+     * @param data dato del nodo que se quiere buscar
+     * @return Padre del nodo
+     */
     public Node SearchFather(Node root, int data) {
         Node encontrado = null;
         if (data < root.getData()) {
@@ -92,6 +93,7 @@ public class RBTree {
         return encontrado;
     }
 
+    /*
     public void printPreorder(Node root) {
         System.out.println(root.getData());
         if (root.getLeft() != null) {
@@ -102,53 +104,23 @@ public class RBTree {
 
         }
     }
-    public String printNode(Node node){
-        String aux="Nombre: " +node.getNombre()+"\n" + 
-                "Apellido: " + node.getApellido()+"\n"+
-                "Cedula: " + Integer.toString(node.getData());
-        
+    */
+    
+
+    /**
+     * Esta funcion imprime los elementos de un nodo
+     *
+     * @param node Nodo a imprimir
+     * @return String de elementos del nodo
+     */
+    public String printNode(Node node) {
+        String aux = "Nombre: " + node.getNombre() + "\n"
+                + "Apellido: " + node.getApellido() + "\n"
+                + "Cedula: " + Integer.toString(node.getData());
+
         return aux;
     }
-
-    public Node AuxPadre(Node mynode, Node root) {
-        if (root == null || mynode == null) {
-            return null;
-        } else if ((root.getRight() != null && root.getRight() == mynode) || (root.getLeft() != null && root.getLeft() == mynode)) {
-            return root;
-        } else {
-            Node encontrado = AuxPadre(mynode, root.getLeft());
-            if (encontrado == null) {
-                encontrado = AuxPadre(mynode, root.getRight());
-            }
-            return encontrado;
-        }
-    }
-
-    public Node Padre(int data) {
-        Node aux = SearchNode(this.root, data);
-        Node padre = AuxPadre(aux, this.root);
-        return padre;
-    }
-    public boolean Search( int i, Node root){
-        boolean aux=false;
-        if (root==null) {
-            return false;
-        }else{
-            if (i==root.getData()) {
-                return aux=true;
-            }else if (root!=null){
-                 if (i<root.getData()) {
-                    aux=Search(i,root.getLeft());
-                }else{
-                     aux=Search(i,root.getRight());
-                 }
-            
-            }
-            
-        }
-        return aux;    
-        
-    }
+    
 
     public Node SearchNode(Node root, int i) {
         Node aux = root;
@@ -165,21 +137,27 @@ public class RBTree {
         return aux;
 
     }
-
+    /*
     public void printInorder(Node root) {
 
         if (root.getLeft() != null) {
             printInorder(root.getLeft());
 
         }
-        System.out.println(root.getNombre()+","+root.getApellido()+","+root.getData());
+        System.out.println(root.getNombre() + "," + root.getApellido() + "," + root.getData());
         if (root.getRight() != null) {
             printInorder(root.getRight());
 
         }
     }
+    */
+    
 
-    // Rotacion doble derecha
+    /**
+     * Este metodo rota a la izquierda
+     *
+     * @param x El nodo que se va a rotar
+     */
     public void leftRotate(Node x) {
         Node y = x.getRight();
         x.setRight(y.getLeft());
@@ -198,6 +176,11 @@ public class RBTree {
         x.setPadre(y);
     }
 
+    /**
+     * Este metodo rota a la derecha
+     *
+     * @param x El nodo que se va a rotar
+     */
     public void rightRotate(Node x) {
         Node y = x.getLeft();
         x.setLeft(y.getRight());
@@ -216,6 +199,11 @@ public class RBTree {
         x.setPadre(y);
     }
 
+    /**
+     * Auxiliar para insertar y balancear el arbol
+     *
+     * @param k Nodo que se va a insertar
+     */
     public void Auxinsert(Node k) {
         Node u;
         if (k.getPadre() == null) {
@@ -225,7 +213,6 @@ public class RBTree {
                 if (k.getPadre() == k.getPadre().getPadre().getRight()) {
                     u = k.getPadre().getPadre().getLeft();//tio
 
-                    
                     if (u != null && u.isRed()) {
                         u.setRed(false);
                         k.getPadre().setRed(false);
@@ -268,8 +255,15 @@ public class RBTree {
 
     }
 
-    public void insert2(String nombre,String apellido,int data) {
-        Node newNode = new Node(nombre,apellido,data);
+    /**
+     * Este metodo inserta un nuevo nodo al arbol
+     *
+     * @param nombre Nombre del vecino
+     * @param apellido Apellido del vecino
+     * @param data Cedula del vecino
+     */
+    public void insert(String nombre, String apellido, int data) {
+        Node newNode = new Node(nombre, apellido, data);
         if (this.root == null) {
             this.root = newNode;
 
@@ -289,51 +283,12 @@ public class RBTree {
         Auxinsert(newNode);
     }
 
-    public void insert(String nombre, String apellido, int key) {
-        Node node = new Node(nombre, apellido, key);
-        Node y = null;
-        Node x = this.root;
-        if (isEmpty()) {
-            root = node;
-            x = node;
-
-        } else {
-            while (x != null) {
-                y = x;
-                if (node.getData() < x.getData()) {
-                    x = x.getLeft();
-                } else {
-                    x = x.getRight();
-                }
-
-            }
-            //while(x!=null){
-            //    y=x;
-            //    if (node.getData()<x.getData()) {
-            //        x=x.getLeft();
-            //    }else{
-            //        x=x.getRight();
-            //    }
-            //}
-            node.setPadre(y);
-            if (y == null) {
-                root = node;
-            } else if (node.getData() < y.getData()) {
-                y.setLeft(node);
-            } else {
-                y.setRight(node);
-            }
-            if (node.getPadre() == null) {
-                node.setRed(false);
-                return;
-            }
-            if (node.getPadre().getPadre() == null) {
-                return;
-            }
-            Auxinsert(node);
-        }
-    }
-     private void fixDelete(Node x) {
+    
+    /**
+     * Metodo auxiliar que elimina y balancea el arbol
+     * @param x Nodo que se va a eliminar
+     */
+    public void AuxDelete(Node x) {
         Node s;
         while (x != null && x != root && x.isRed() == false) {
             if (x == x.getPadre().getLeft()) {
@@ -400,8 +355,12 @@ public class RBTree {
         }
         //x.setRed(false);
     }
-
-    private void transplanteRB(Node u, Node v) {
+    /**
+     * Metodo que cambia apuntadores
+     * @param u Nodo al que se le va a cambiar el apuntador
+     * @param v Nodo que recibe el apuntador de u
+     */
+    public void transplanteRB(Node u, Node v) {
         if (u.getPadre() == null) {
             root = v;
         } else if (u == u.getPadre().getLeft()) {
@@ -409,27 +368,31 @@ public class RBTree {
         } else {
             u.getPadre().setRight(v);
         }
-        if(u.getPadre() != null && v!=null){
+        if (u.getPadre() != null && v != null) {
             v.setPadre(u.getPadre());
         }
     }
-
-    public void eliminarNodo(Node raiz, int key) {
-        // find the node containing key
+    /**
+     * Metodo que elimina un nodo
+     * @param root Nodo de la raiz
+     * @param key valor del nodo a eliminar
+     */
+    public void deleteNodo(Node root, int key) {
+        
         Node z = null;
         Node x, y;
-        while (raiz != null) {
-            if (raiz.getData() == key){
-                z = raiz;
+        while (root != null) {
+            if (root.getData() == key) {
+                z = root;
             }
-            if (raiz.getData() < key) {
-                raiz = raiz.getRight();
+            if (root.getData() < key) {
+                root = root.getRight();
             } else {
-                raiz = raiz.getLeft();
+                root = root.getLeft();
             }
         }
         if (z == null) {
-            JOptionPane.showMessageDialog(null,"No se pudo encontrar la cédula");
+            JOptionPane.showMessageDialog(null, "No se pudo encontrar la cédula");
             return;
         }
         y = z;
@@ -458,32 +421,38 @@ public class RBTree {
             y.setRed(z.isRed());
         }
         if (yOriginalColor == false) {
-            fixDelete(x);
+            AuxDelete(x);
         }
     }
-
+    /**
+     * Metodo que busca el minimo elemento
+     * @param node Nodo raiz del arbol o un nodo cualquiera que se pueda
+     * encontrar el minimo
+     * @return El nodo minimo 
+     */
     public Node minimum(Node node) {
         while (node.getLeft() != null) {
             node = node.getLeft();
         }
         return node;
     }
+
     public void writePreorder(Node root, CsvWriter csvwriter) {
-        try{
-            
-            String[] habitantes_csv = {root.getNombre(),root.getApellido(), Integer.toString(root.getData())};
+        try {
+
+            String[] habitantes_csv = {root.getNombre(), root.getApellido(), Integer.toString(root.getData())};
             csvwriter.writeRecord(habitantes_csv);
-            
+
             if (root.getLeft() != null) {
-                writePreorder(root.getLeft(),csvwriter);
+                writePreorder(root.getLeft(), csvwriter);
             }
             if (root.getRight() != null) {
                 writePreorder(root.getRight(), csvwriter);
 
             }
 
-        }catch(Exception err){
-                
+        } catch (Exception err) {
+
         }
     }
 }
