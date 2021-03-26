@@ -25,6 +25,13 @@ import javax.swing.JScrollPane;
  */
 public class Interfaz extends javax.swing.JFrame {
 
+    /**
+     * Esta funcion que lee el archivo csv
+     *
+     * @param filepath la ruta del archivo csv
+     * @return los habitantes
+     */
+    
     public RBTree leercsv(String filepath) {
         RBTree personas = new RBTree();
         String line;
@@ -73,11 +80,44 @@ public class Interfaz extends javax.swing.JFrame {
         return personas;
 
     }
+    
+    /**
+     * Esta funcion recorre el arbol y escribe en el csv
+     *
+     * @param root la raiz del arbol
+     * @param csvwriter el archivo csv
+     */
+    
+    public void writePreorder(Node root, CsvWriter csvwriter) {
+        try {
+
+            String[] habitantes_csv = {root.getNombre(), root.getApellido(), Integer.toString(root.getData())};
+            csvwriter.writeRecord(habitantes_csv);
+
+            if (root.getLeft() != null) {
+                writePreorder(root.getLeft(), csvwriter);
+            }
+            if (root.getRight() != null) {
+                writePreorder(root.getRight(), csvwriter);
+
+            }
+
+        } catch (Exception err) {
+
+        }
+    }
 
     RBTree persona = new RBTree();//Crea arbol vacio
     Canvas canvas = new Canvas();
     Controller controller = new Controller(canvas, persona);
-
+    
+    /**
+     * Esta funcion muestra el arbol
+     *
+     * @param arbol el arbol
+     * @return arbol mostrado
+     */
+    
     public String mostrarArbol(RBTree arbol) {
         setLayout(null);
         JScrollPane scrollPane;
@@ -585,7 +625,7 @@ public class Interfaz extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al escribir. \nEl arbol se encuentra vacio");
             } else {
                 csvwriter.writeRecord(titulo_1);
-                persona.writePreorder(persona.getRoot(), csvwriter);
+                writePreorder(persona.getRoot(), csvwriter);
                 JOptionPane.showMessageDialog(null, "Exito al escribir");
                 csvwriter.close();
             }
