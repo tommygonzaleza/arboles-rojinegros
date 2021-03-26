@@ -148,21 +148,7 @@ public class RBTree {
     }
     
 
-    public Node SearchNode(Node root, int i) {
-        Node aux = root;
-        while (aux.getData() != i) {
-            if (i < aux.getData()) {
-                aux = aux.getLeft();
-            } else {
-                aux = aux.getRight();
-            }
-            if (aux == null) {
-                return null;
-            }
-        }
-        return aux;
-
-    }
+    
     /*
     public void printInorder(Node root) {
 
