@@ -456,7 +456,7 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(CI.getText());
             
-            if (!persona.search1(cedula, persona.getRoot())) {
+            if (!persona.Search(cedula, persona.getRoot())) {
                 persona.insert(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
             }else{
@@ -498,7 +498,7 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(cedulaI);
             
-            if (persona.Search(cedula, persona.getRoot())==false) {
+            if (!persona.Search(cedula, persona.getRoot())) {
                 JOptionPane.showMessageDialog(null,"La cedula no se encuentra.");
                 
             }else{
