@@ -21,9 +21,9 @@ import javax.swing.JScrollPane;
  *
  * @author Usuario
  */
-
 public class Interfaz extends javax.swing.JFrame {
-    public RBTree leercsv(String filepath){
+
+    public RBTree leercsv(String filepath) {
         RBTree personas = new RBTree();
         String line;
         String pelicula_csv = "";
@@ -38,22 +38,21 @@ public class Interfaz extends javax.swing.JFrame {
                 FileReader fr = new FileReader(file);
                 BufferedReader br = new BufferedReader(fr);
                 while ((line = br.readLine()) != null) {
-                    
+
                     if (!line.isEmpty()) {
                         pelicula_csv += line + "\n";
                     }
 
                 }
-               
+
                 if (!"".equals(pelicula_csv)) {
                     String[] pelicula_split = pelicula_csv.split("\n");
-                    String texto=pelicula_split[0];
-                    for (int i = 0; i < pelicula_split.length ; i++) {
-                       
-                        
+                    String texto = pelicula_split[0];
+                    for (int i = 0; i < pelicula_split.length; i++) {
+
                         if (!pelicula_split[i].equals(texto)) {
                             String[] cliente = pelicula_split[i].split(",");
-                            personas.insert(cliente[0],cliente[1], Integer.parseInt(cliente[2]));
+                            personas.insert(cliente[0], cliente[1], Integer.parseInt(cliente[2]));
 
                         }
 
@@ -72,8 +71,8 @@ public class Interfaz extends javax.swing.JFrame {
         return personas;
 
     }
-    
-    RBTree persona =new RBTree();//Crea arbol vacio
+
+    RBTree persona = new RBTree();//Crea arbol vacio
     Canvas canvas = new Canvas();
     Controller controller = new Controller(canvas, persona);
 
@@ -83,11 +82,11 @@ public class Interfaz extends javax.swing.JFrame {
         Canvas canvas = new Canvas();
         Controller controller = new Controller(canvas, arbol);
         controller.iniciar();
-        scrollPane=new JScrollPane();
-        scrollPane.setBounds(5,10,2000,1000);
-        
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(5, 10, 2000, 1000);
+
         JFrame ventana = new JFrame();
-        canvas.setPreferredSize(new Dimension(5000,400));
+        canvas.setPreferredSize(new Dimension(5000, 400));
         scrollPane.setViewportView(canvas);
         ventana.getContentPane().add(scrollPane);
         ventana.setDefaultCloseOperation(3);
@@ -95,6 +94,7 @@ public class Interfaz extends javax.swing.JFrame {
         ventana.setVisible(true);
         return "Arbol mostrado.";
     }
+
     /**
      * Creates new form Interfaz
      */
@@ -423,7 +423,7 @@ public class Interfaz extends javax.swing.JFrame {
             if (name.equals(csv)) {
                 jLabel3.setText(filepath);
                 JOptionPane.showMessageDialog(null, "Formato del Archivo: " + name);
-                persona=leercsv(filepath);
+                persona = leercsv(filepath);
             } else {
                 JOptionPane.showMessageDialog(null, "El archivo debe ser de tipo csv. No " + name);
             }
@@ -443,29 +443,28 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        String Nombre=nombre.getText();
-        String Apellido=apellido.getText();
-        String cI=CI.getText();
+        String Nombre = nombre.getText();
+        String Apellido = apellido.getText();
+        String cI = CI.getText();
         if (Nombre.equals("")) {
             JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio ");
-        }else if (Apellido.equals("")) {
+        } else if (Apellido.equals("")) {
             JOptionPane.showMessageDialog(null, "El apellido no puede estar vacio ");
-            
-        }else if (cI.equals("")) {
+
+        } else if (cI.equals("")) {
             JOptionPane.showMessageDialog(null, "La CI no puede estar vacio ");
-        }else{
-            int cedula=Integer.parseInt(CI.getText());
-            
+        } else {
+            int cedula = Integer.parseInt(CI.getText());
+
             if (!persona.Search(cedula, persona.getRoot())) {
                 persona.insert(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
-            }else{
-                JOptionPane.showMessageDialog(null, "Ya existe la CI: "+ cedula);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ya existe la CI: " + cedula);
             }
-            
-                
-            }
-        
+
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoActionPerformed
@@ -492,102 +491,108 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        String cedulaI=jTextField5.getText();
+        String cedulaI = jTextField5.getText();
         if (cedulaI.equals("")) {
             JOptionPane.showMessageDialog(null, "La CI no puede estar vacio ");
-        }else{
-            int cedula=Integer.parseInt(cedulaI);
-            
+        } else {
+            int cedula = Integer.parseInt(cedulaI);
+
             if (!persona.Search(cedula, persona.getRoot())) {
-                JOptionPane.showMessageDialog(null,"La cedula no se encuentra.");
-                
-            }else{
-                JOptionPane.showMessageDialog(null,persona.printNode(persona.search(cedula, persona.getRoot())));
-                
+                JOptionPane.showMessageDialog(null, "La cedula no se encuentra.");
+
+            } else {
+                JOptionPane.showMessageDialog(null, persona.printNode(persona.search(cedula, persona.getRoot())));
+
             }
-            
-                
-            }
+
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        
+
         mostrarArbol(persona);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if (Character.isLetter(car) ) {
-            
+        if (Character.isLetter(car)) {
+
         } else {
             evt.consume();
             getToolkit().beep();
-            
+
         }
     }//GEN-LAST:event_nombreKeyTyped
 
     private void apellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_apellidoKeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if (Character.isLetter(car) ) {
-            
+        if (Character.isLetter(car)) {
+
         } else {
             evt.consume();
             getToolkit().beep();
-            
+
         }
     }//GEN-LAST:event_apellidoKeyTyped
 
     private void CIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CIKeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if (Character.isDigit(car) ) {
-            
+        if (Character.isDigit(car)) {
+
         } else {
             evt.consume();
             getToolkit().beep();
-            
+
         }
     }//GEN-LAST:event_CIKeyTyped
 
     private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if (Character.isDigit(car) ) {
-            
+        if (Character.isDigit(car)) {
+
         } else {
             evt.consume();
             getToolkit().beep();
-            
+
         }
     }//GEN-LAST:event_jTextField4KeyTyped
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
         // TODO add your handling code here:
         char car = evt.getKeyChar();
-        if (Character.isDigit(car) ) {
-            
+        if (Character.isDigit(car)) {
+
         } else {
             evt.consume();
             getToolkit().beep();
-            
+
         }
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-            
+
         CsvWriter csvwriter = new CsvWriter("test\\habitantes.csv");
-        String[] titulo_1 = {"Nombre","Apellido","CI"};
+        String[] titulo_1 = {"Nombre", "Apellido", "CI"};
         try {
-            csvwriter.writeRecord(titulo_1);
+            if (persona.getRoot() == null) {
+                JOptionPane.showMessageDialog(null, "Error al escribir. \nEl arbol se encuentra vacio");
+            } else {
+                csvwriter.writeRecord(titulo_1);
+                persona.writePreorder(persona.getRoot(), csvwriter);
+                JOptionPane.showMessageDialog(null, "Exito al escribir");
+                csvwriter.close();
+            }
+
         } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Error al escribir");
         }
-        persona.writePreorder(persona.getRoot(), csvwriter);
-        JOptionPane.showInternalMessageDialog(null, "Éxito al escribir");
-        csvwriter.close();
-            
+
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
