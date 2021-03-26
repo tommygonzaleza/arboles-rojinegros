@@ -16,7 +16,7 @@ public class Canvas extends JPanel {
     private RBTree arbol;
     public static final int DIAMETRO = 30;
     public static final int RADIO = DIAMETRO / 2;
-    public static final int ANCHO = 50;
+    public static final int ANCHO = 100;
     
     /**
      * Este método recibe el valor del arbol que se quiere pintar y lo guarda en la variable arbol.

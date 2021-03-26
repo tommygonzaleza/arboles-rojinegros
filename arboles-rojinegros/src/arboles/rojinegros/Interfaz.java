@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -110,6 +111,7 @@ public class Interfaz extends javax.swing.JFrame {
     RBTree persona = new RBTree();//Crea arbol vacio
     Canvas canvas = new Canvas();
     Controller controller = new Controller(canvas, persona);
+    boolean aux =false;
     
     /**
      * Esta funcion muestra el arbol
@@ -120,19 +122,21 @@ public class Interfaz extends javax.swing.JFrame {
     
     public String mostrarArbol(RBTree arbol) {
         setLayout(null);
-        JScrollPane scrollPane;
+        JScrollPane scrollPane;       
         Canvas canvas = new Canvas();
         Controller controller = new Controller(canvas, arbol);
         controller.iniciar();
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(5, 10, 2000, 1000);
-
+        scrollPane.setBounds(10, 5, 20000, 6000);
+        
+        
         JFrame ventana = new JFrame();
-        canvas.setPreferredSize(new Dimension(5000, 400));
+        canvas.setPreferredSize(new Dimension(11000, 2000));//Se agranda la dimension de la ventana
+        
         scrollPane.setViewportView(canvas);
         ventana.getContentPane().add(scrollPane);
-        ventana.setDefaultCloseOperation(3);
-        ventana.setSize(1000, 500);
+        ventana.setDefaultCloseOperation(1);
+        ventana.setSize(1000, 900);
         ventana.setVisible(true);
         return "Arbol mostrado.";
     }
@@ -142,6 +146,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -454,7 +459,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser = new JFileChooser();
+        try{
+            JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getName();
@@ -466,6 +472,7 @@ public class Interfaz extends javax.swing.JFrame {
                 jLabel3.setText(filepath);
                 JOptionPane.showMessageDialog(null, "Formato del Archivo: " + name);
                 persona = leercsv(filepath);
+                aux=true;
             } else {
                 JOptionPane.showMessageDialog(null, "El archivo debe ser de tipo csv. No " + name);
             }
@@ -473,6 +480,11 @@ public class Interfaz extends javax.swing.JFrame {
             // whatever is appropriate in this case
             JOptionPane.showMessageDialog(null, "El archivo tiene menos de tres caracteres. ");
         }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error a subir el archivo");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -501,6 +513,7 @@ public class Interfaz extends javax.swing.JFrame {
             if (!persona.Search(cedula, persona.getRoot())) {
                 persona.insert(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
+                aux=true;
             } else {
                 JOptionPane.showMessageDialog(null, "Ya existe la CI: " + cedula);
             }
@@ -552,8 +565,13 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        if (aux) {
+            mostrarArbol(persona);
+        }else{
+            JOptionPane.showMessageDialog(null, "Todavia no ha cargado ningun archivo");
+        }
 
-        mostrarArbol(persona);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
