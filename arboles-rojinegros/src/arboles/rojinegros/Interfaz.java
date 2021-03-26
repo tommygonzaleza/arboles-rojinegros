@@ -11,6 +11,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -456,7 +458,7 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(CI.getText());
             
-            if (!persona.search1(cedula, persona.getRoot())) {
+            if (persona.search(cedula, persona.getRoot())!=null) {
                 persona.insert(Nombre, Apellido, cedula);
                 JOptionPane.showMessageDialog(null, "Agregado");
             }else{
@@ -498,7 +500,7 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             int cedula=Integer.parseInt(cedulaI);
             
-            if (persona.Search(cedula, persona.getRoot())==false) {
+            if (persona.search(cedula, persona.getRoot())!=null) {
                 JOptionPane.showMessageDialog(null,"La cedula no se encuentra.");
                 
             }else{
@@ -578,15 +580,16 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
             
-        CsvWriter csvwriter = new CsvWriter("test\\habitantes.csv");
-        String[] titulo_1 = {"Nombre","Apellido","CI"};
         try {
+            CsvWriter csvwriter = new CsvWriter("test\\habitantes.csv");
+            String[] titulo_1 = {"Nombre","Apellido","CI"};
             csvwriter.writeRecord(titulo_1);
+            persona.writePreorder(persona.getRoot(), csvwriter);
+            JOptionPane.showInternalMessageDialog(null, "Éxito al escribir");
+            csvwriter.close();
         } catch (IOException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        persona.writePreorder(persona.getRoot(), csvwriter);
-        JOptionPane.showInternalMessageDialog(null, "Éxito al escribir");
-        csvwriter.close();
             
     }//GEN-LAST:event_jButton7ActionPerformed
 
