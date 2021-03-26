@@ -18,19 +18,32 @@ public class Canvas extends JPanel {
     public static final int RADIO = DIAMETRO / 2;
     public static final int ANCHO = 50;
     
+    /**
+     * Este método recibe el valor del arbol que se quiere pintar y lo guarda en la variable arbol.
+     * @param arbol RBTree Es el arbol que se quiere pintar.
+     */
     public void setArbol(RBTree arbol){
         this.arbol = arbol;
         repaint();
     }
     
+    /**
+     * Este método pinta el arbol ejecutnado el método pintar().
+     * @param g Graphics que nos permiten pintar el arbol.
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         pintar(g, getWidth() / 2, 20, arbol.getRoot());
-        
-        
     }
     
+    /**
+     * Este método nos permite pintar el arbol, crea las circunferencias, las líneas que las une y agrega los números.
+     * @param g Graphics que nos permiten pintar el arbol.
+     * @param x int Número que nos ayuda a determinar el tamaño de las líneas para el vector x.
+     * @param y int Número que nos ayuda a determinar el tamaño de las líneas para el vector y.
+     * @param n Node nodo que se va a pintar.
+     */
     private void pintar(Graphics g, int x, int y, Node n) {
         g.setFont(new Font("Arial",Font.ITALIC,9));
         if (n == null)
@@ -52,12 +65,10 @@ public class Canvas extends JPanel {
             if (n.getLeft() != null){
                 g.drawString(Integer.toString(n.getData()), x + 5, y + 10);
                 g.drawLine(x+RADIO, y+RADIO, x-ANCHO-EXTRA+RADIO, y+ANCHO+RADIO);
-               // g.setFont(new Font("Tahoma",Font.BOLD,15));
             }
             if(n.getRight()!=null){
                 g.drawLine(x+RADIO,y+RADIO,x+ANCHO+EXTRA+RADIO,y+ANCHO+RADIO);
                 g.drawString(Integer.toString(n.getData()), x + 5, y + 10);
-                //g.setFont(new Font("Tahoma",Font.BOLD,15));
             }
             
             pintar(g, x-ANCHO-EXTRA, y+ANCHO, n.getLeft());
