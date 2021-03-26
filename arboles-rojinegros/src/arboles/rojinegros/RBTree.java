@@ -42,7 +42,7 @@ public class RBTree {
      * @param root raiz del arbol y subarboles
      * @return el nodo del elemento d
      */
-
+    
     public Node search(int d, Node root) {
         if (this.root == null) {
             return null;
@@ -53,6 +53,32 @@ public class RBTree {
         } else {
             return search(d, root.getLeft());
         }
+    }
+    /**
+     * Metodo para verificar si un elemento existe
+     * @param i elemento del nodo
+     * @param root raiz del arbol
+     * @return si esta o no esta el elemento
+     */
+    public boolean Search( int i, Node root){
+        boolean aux=false;
+        if (root==null) {
+            return false;
+        }else{
+            if (i==root.getData()) {
+                return aux=true;
+            }else if (root!=null){
+                 if (i<root.getData()) {
+                    aux=Search(i,root.getLeft());
+                }else{
+                     aux=Search(i,root.getRight());
+                 }
+            
+            }
+            
+        }
+        return aux;    
+        
     }
 
 
@@ -122,21 +148,7 @@ public class RBTree {
     }
     
 
-    public Node SearchNode(Node root, int i) {
-        Node aux = root;
-        while (aux.getData() != i) {
-            if (i < aux.getData()) {
-                aux = aux.getLeft();
-            } else {
-                aux = aux.getRight();
-            }
-            if (aux == null) {
-                return null;
-            }
-        }
-        return aux;
-
-    }
+    
     /*
     public void printInorder(Node root) {
 
